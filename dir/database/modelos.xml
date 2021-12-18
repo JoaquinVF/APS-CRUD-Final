@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Thumbnails xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Nodes id='1'>
+    <Name>Torsión01</Name>
+    <OBJName>torsion_1</OBJName>
+    <Scale>1.2</Scale>
+  </Nodes>
+  <Nodes id='2'>
+    <Name>Torsión02</Name>
+    <OBJName>torsion_2</OBJName>
+    <Scale>1.0</Scale>
+  </Nodes>
+  <Nodes id='5'>
+    <Name>Torsión05</Name>
+    <OBJName>torsion_5</OBJName>
+    <Scale>0.8</Scale>
+  </Nodes>
+  <Nodes id='6'>
+    <Name>Torsión06</Name>
+    <OBJName>torsion_6</OBJName>
+    <Scale>0.8</Scale>
+  </Nodes>
+  <Nodes id='9'>
+    <Name>Torsión09</Name>
+    <OBJName>torsion_9</OBJName>
+    <Scale>1.3</Scale>
+  </Nodes>
+</Thumbnails>

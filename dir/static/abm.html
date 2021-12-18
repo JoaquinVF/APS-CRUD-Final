@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ABM</title>
+</head>
+<style>
+    body{
+    display: grid;
+    place-content: center;
+}
+button{
+    margin-bottom: 5px;
+}
+table,th,td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+th,td {
+    padding: 5px;
+}
+.newNode,.editNode,.deleteNode{
+    display: none;
+}
+</style>
+<body>
+    <button id="input-newNode-btn">Nuevo nodo</button>
+    <button id="input-editNode-btn">Editar nodo</button>
+    <button id="input-deleteNode-btn">Borrar nodo</button>
+    <br>
+    <br>
+    <ul class="newNode">
+        <h2>Agregar nuevo Nodo</h2>
+        <li for="">Name del nodo</li>
+        <input type="text" name="name"  id="new_name" required>
+        <li for="">Scale</li>
+        <input type="number" name="scale" step="0.1" id="new_scale" required>
+        <br>
+        <br>
+        <button id="createNodo-btn">Crear</button>
+    </ul>
+    <ul class="editNode">
+        <h2>Editar Nodo</h2>
+        <p>Selecciona el OBJName a editar.</p>
+        <select id="select-objName">
+        </select>
+        <br>
+        <br>
+        <p>Puedes editar el Name y Scale</p>
+        <li for="">Name del nodo</li>
+        <input type="text" name="name" id="edit_name" required>
+        <li for="">Scale</li>
+        <input type="number" name="scale" step="0.1" id="edit_scale" required>
+        <br>
+        <br>
+        <button id="updateNodo-btn">Editar</button>
+    </ul>
+    <ul class="deleteNode">
+        <h2>Borrar Nodo</h2>
+        <li for="">Name del nodo</li>
+        <select id="select-objName2">
+        </select>
+        <br>
+        <br>
+        <button id="deleteNodo-btn">Borrar</button>
+    </ul>
+    <br>
+    <table id="info"></table>
+    <br>
+    <p>Apretar enviar cuando termines TODOS los cambios.</p>
+    <button id="sendFile">Enviar XML</button>
+</body>
+<script src="/static/script.js"></script>
+</html>
