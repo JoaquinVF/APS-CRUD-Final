@@ -10,7 +10,7 @@ const app = express();
 
 app.use(express.urlencoded({ extended: true}));
 app.use(express.json());
-app.use("/static", express.static('./static/'));
+app.use("/static", express.static('./dir/static/'));
 app.use(cookieParser('mi secreto'));
 
 app.use(session({
@@ -45,7 +45,7 @@ app.get('/', (req,res,next)=>{
     if(req.isAuthenticated()) return next();
     res.redirect('/login');
 },(req,res)=>{
-    res.sendFile(__dirname + '/static/abm.html');
+    res.sendFile(__dirname + '/dir/static/abm.html');
 });
 
 app.get('/login', (req, res)=>{
@@ -59,12 +59,12 @@ app.post('/login', passport.authenticate('local',{
 
 
 app.get('/modelos', function (req, res) {
-    res.sendFile( __dirname + '/database/modelos.xml');
+    res.sendFile( __dirname + '/dir/database/modelos.xml');
 });
 
 let models = [];
 app.post("/post-xml", function(req, res) {
-  fs.readFile(__dirname + '/database/modelos.xml', function(err, data) {
+  fs.readFile(__dirname + '/dir/database/modelos.xml', function(err, data) {
     parser.parseString(data, function (err, result) {
       nodes = result['Thumbnails']['Nodes'];
       this.models.push(nodes);
@@ -78,7 +78,7 @@ app.post("/send-xml", function(req, res) {
     const data = req.body;
     var builder = new xml2js.Builder();
     var xml = builder.buildObject(data);
-    fs.writeFileSync(__dirname + '/database/modelos-new.xml', xml);
+    fs.writeFileSync(__dirname + '/dir/database/modelos-new.xml', xml);
 });
 
 
