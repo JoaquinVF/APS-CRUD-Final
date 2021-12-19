@@ -1,5 +1,5 @@
 const table = document.getElementById("info");
-const regex = /[a-zA-Z0-9]/g
+const regex = /[ `!@#$%^&*()_+-=\[\]{};':"\\|,.<>\/?~]/;
 
 let new_name = document.querySelector("#new_name");
 let new_OBJname = document.querySelector("#new_OBJname");
@@ -18,25 +18,20 @@ const ideleteNode_btn = document.querySelector("#input-deleteNode-btn");
 
 const sendXml_btn = document.querySelector('#sendFile');
 
-/// Muestra los input \\\
+
 icreateNodo_btn.addEventListener('click', function(){
   showInput(0);
-})
-ieditNodo_btn.addEventListener('click', function(){
-  showInput(1);
-})
-ideleteNode_btn.addEventListener('click', function(){
-  showInput(2);
-})
-
+});
 /// Edita y carga los input \\\
 
 function editFunction(name, objname, scale){
+  createOptions()
+  showInput(1);
+
   edit_name.value = name;
   document.querySelector('#select-objName').value = objname;
   edit_scale.value = scale;
-  showInput(1);
-}
+};
 
 function showInput(number){
   let x = document.getElementsByTagName('ul')
@@ -44,7 +39,7 @@ function showInput(number){
     x[i].style.display = 'none';
   }
   x[number].style.display = 'block';
-}
+};
 /////////////////////////
 
 let aXML = new DOMParser();
@@ -106,7 +101,7 @@ function xmlFunction(xml) {
 
 ///////////////////  CREA <OPTIONS> EN EL HTML  \\\\\\\\\\\\\\\\\\\\\
 
-ieditNodo_btn.addEventListener("click", ()=>{
+function createOptions() {
   let editPage = document.getElementsByTagName("ul")[1];
   let selectOption = document.querySelector('#select-objName');
 
@@ -124,34 +119,44 @@ ieditNodo_btn.addEventListener("click", ()=>{
     createOption.id = `option_${i-1}`;
     createSelect.appendChild(createOption);
   }
-})
+};
+
+  function deleteOptions() {
+    let deletePage = document.getElementsByTagName("ul")[2];
+    let selectOption2 = document.querySelector('#select-objName2');
+  
+    deletePage.removeChild(selectOption2);
+    let createSelect = document.createElement("select");
+    createSelect.id = "select-objName2";
+    document.getElementsByTagName("ul")[2].insertBefore(createSelect, document.getElementsByTagName("ul")[2].children[2]);
+  
+    tbody = table.tBodies[0]
+  
+    for (let i = 1; i < tbody.children.length; i++) {
+      var createOption = document.createElement("option");
+  
+      createOption.innerText = tbody.children[i].children[1].textContent
+      createOption.id = `option_${i-1}`;
+      createSelect.appendChild(createOption);
+    }
+  }
 
 ieditNodo_btn.addEventListener("click", ()=>{
-  let deletePage = document.getElementsByTagName("ul")[2];
-  let selectOption2 = document.querySelector('#select-objName2');
+  createOptions();
+  showInput(1);
+});
 
-  deletePage.removeChild(selectOption2);
-  let createSelect = document.createElement("select");
-  createSelect.id = "select-objName2";
-  document.getElementsByTagName("ul")[2].insertBefore(createSelect, document.getElementsByTagName("ul")[2].children[2]);
-
-  tbody = table.tBodies[0]
-
-  for (let i = 1; i < tbody.children.length; i++) {
-    var createOption = document.createElement("option");
-
-    createOption.innerText = tbody.children[i].children[1].textContent
-    createOption.id = `option_${i-1}`;
-    createSelect.appendChild(createOption);
-  }
-})
+ideleteNode_btn.addEventListener("click", ()=>{
+  deleteOptions();
+  showInput(2);
+});
 
 
 ///////////////////  ALGORITMO PARA AGREGAR NUEVOS NODOS  \\\\\\\\\\\\\\\\\\\\\
 
 createNodo_btn.addEventListener("click", () => {
 
-  if ( new_name.value.match(regex) && ! new_scale.value == '') {
+  if (! new_name.value == '' && ! new_name.value.match(regex) && ! new_scale.value == '') {
     let nuevoNodo;
 
     var createRow = document.createElement("tr");
@@ -163,17 +168,17 @@ createNodo_btn.addEventListener("click", () => {
   
     let torsionNumber;
     if (searchId()>99){
-      torsionNumber = (`0${searchId()}`).slice(-3)
+      torsionNumber = (`0${searchId()}`).slice(-3);
     } else if (searchId()<100){
-      torsionNumber = (`0${searchId()}`).slice(-2)
-    } else torsionNumber = (`0${searchId()}`).slice(-4)
+      torsionNumber = (`0${searchId()}`).slice(-2);
+    } else torsionNumber = (`0${searchId()}`).slice(-4);
   
     createName.innerHTML = new_name.value;
     createObjName.innerHTML = `torsion_${searchId()}`;
     createScale.innerHTML = new_scale.value;
     createEdit.innerText = 'Editar';
   
-    createEdit.href = `javascript:edit(${createName,createObjName,createScale})`
+    createEdit.href = `javascript:editFunction('${createName.innerText}','${createObjName.innerText}','${createScale.innerText}')`
     
     createRow.appendChild(createName);
     createRow.appendChild(createObjName);
@@ -183,13 +188,13 @@ createNodo_btn.addEventListener("click", () => {
     
     document.querySelector("tbody").appendChild(createRow);
 
-  } else window.alert('Completa todos los formularios y asegurate que no haya caracteres especiales (espacios, guiones, etc)');
+  } else window.alert('Completa todos los formularios y asegurate que no haya caracteres especiales (espacios, guiones, etc)')
 }, false);
 
 ///////////////////  ALGORITMO PARA EDITAR NODOS  \\\\\\\\\\\\\\\\\\\\\
 
 updateNodo_btn.addEventListener("click", () => {
-  if (edit_name.value.match(regex) && ! edit_scale.value == '') {
+  if (! edit_name.value == '' && ! edit_name.value.match(regex) && ! edit_scale.value == '') {
     tbody = table.tBodies[0]
   
     for (let i = 0; i < tbody.children.length; i++) {
@@ -198,7 +203,7 @@ updateNodo_btn.addEventListener("click", () => {
         tbody.children[i].children[2].textContent = edit_scale.value;
       }
     };
-  } else window.alert('Completa todos los formularios y asegurate que no haya caracteres especiales (espacios, guiones, etc)');
+  } else window.alert('Completa todos los formularios y asegurate que no haya caracteres especiales (espacios, guiones, etc)')
 }, false);
 
 ///////////////////  ALGORITMO PARA BORRAR NODOS  \\\\\\\\\\\\\\\\\\\\\
@@ -212,6 +217,7 @@ deleteNode_btn.addEventListener("click", () => {
       tbody.removeChild(tbody.children[i])
     }
   }
+  deleteOptions();
 }, false);
 
 
@@ -229,7 +235,7 @@ function tableToJson() {
     Scale: `${tbody.children[i].children[2].textContent}`};
     data.Thumbnails.push(x);
   }
-  return data
+  return data;
 }
 
 ///////////////////  ENVIAR JSON A NODEJS  \\\\\\\\\\\\\\\\\\\\\

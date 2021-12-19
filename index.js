@@ -7,6 +7,7 @@ const fs = require('fs');
 const PassportLocal = require('passport-local').Strategy;
 
 const app = express();
+let models = [];
 
 app.use(express.urlencoded({ extended: true}));
 app.use(express.json());
@@ -62,7 +63,7 @@ app.get('/modelos', function (req, res) {
     res.sendFile( __dirname + '/dir/database/modelos.xml');
 });
 
-let models = [];
+
 app.post("/post-xml", function(req, res) {
   fs.readFile(__dirname + '/dir/database/modelos.xml', function(err, data) {
     parser.parseString(data, function (err, result) {
