@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Thumbnails>
-  <Name>PEPE TIENE UN AMIGO IMAGINARIO LLAMADO AGUSTINA</Name>
+  <Name>Torsión01</Name>
   <OBJName>torsion_1</OBJName>
   <Scale>1.2</Scale>
   <Name>Torsión02</Name>
@@ -15,4 +15,7 @@
   <Name>Torsión09</Name>
   <OBJName>torsion_9</OBJName>
   <Scale>1.3</Scale>
+  <Name>pepe</Name>
+  <OBJName>torsion_3</OBJName>
+  <Scale>1</Scale>
 </Thumbnails>
