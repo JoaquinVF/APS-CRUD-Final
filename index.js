@@ -83,5 +83,6 @@ app.post("/send-xml", function(req, res) {
     fs.writeFileSync(__dirname + '/dir/database/modelos-new.xml', xml);
 });
 
+module.exports = app;
 module.exports.handler = serverless(app);
 // app.listen(8080,()=> console.log("Server started"));
