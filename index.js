@@ -84,6 +84,8 @@ router.post("/send-xml", function(req, res) {
     fs.writeFileSync(__dirname + '/dir/database/modelos-new.xml', xml);
 });
 
+
+app.use('/.netlify/functions/server', router);
 module.exports = app;
 module.exports.handler = serverless(app);
 // app.listen(8080,()=> console.log("Server started"));
