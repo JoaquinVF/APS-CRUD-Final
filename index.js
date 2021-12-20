@@ -1,6 +1,7 @@
 const express = require('express');
 const xml2js = require('xml2js');
 const passport = require('passport');
+const serverless = require('serveless-http');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const fs = require('fs');
@@ -82,5 +83,5 @@ app.post("/send-xml", function(req, res) {
     fs.writeFileSync(__dirname + '/dir/database/modelos-new.xml', xml);
 });
 
-
-app.listen(8080,()=> console.log("Server started"));
+module.exports.handler = serverless(app);
+// app.listen(8080,()=> console.log("Server started"));
