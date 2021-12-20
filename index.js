@@ -8,6 +8,7 @@ const fs = require('fs');
 const PassportLocal = require('passport-local').Strategy;
 
 const app = express();
+const router = express.Router();
 let models = [];
 
 app.use(express.urlencoded({ extended: true}));
@@ -43,29 +44,29 @@ passport.deserializeUser(function(id,done){
 
 app.set('view engine', 'ejs');
 
-app.get('/', (req,res,next)=>{
+router.get('/', (req,res,next)=>{
     if(req.isAuthenticated()) return next();
     res.redirect('/login');
 },(req,res)=>{
     res.sendFile(__dirname + '/dir/static/abm.html');
 });
 
-app.get('/login', (req, res)=>{
+router.get('/login', (req, res)=>{
     res.render('login');
 });
 
-app.post('/login', passport.authenticate('local',{
+router.post('/login', passport.authenticate('local',{
     successRedirect: '/',
     failureRedirect: '/login'
 }));
 
 
-app.get('/modelos', function (req, res) {
+router.get('/modelos', function (req, res) {
     res.sendFile( __dirname + '/dir/database/modelos.xml');
 });
 
 
-app.post("/post-xml", function(req, res) {
+router.post("/post-xml", function(req, res) {
   fs.readFile(__dirname + '/dir/database/modelos.xml', function(err, data) {
     parser.parseString(data, function (err, result) {
       nodes = result['Thumbnails']['Nodes'];
@@ -76,7 +77,7 @@ app.post("/post-xml", function(req, res) {
   res.json(models);
 })
 
-app.post("/send-xml", function(req, res) {
+router.post("/send-xml", function(req, res) {
     const data = req.body;
     var builder = new xml2js.Builder();
     var xml = builder.buildObject(data);
